@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const { name, email, club, interest, message, privacy, page } = req.body || {};
-  if (!name || !email || !club || !interest || !message || !privacy) {
+  const { name, phone, email, club, interest, callback, message, privacy, page } = req.body || {};
+  if (!name || !phone || !email || !club || !interest || !callback || !message || !privacy) {
     return res.status(400).json({ error: 'Bitte alle Pflichtfelder ausfüllen.' });
   }
   const apiKey = process.env.RESEND_API_KEY;
@@ -13,9 +13,11 @@ export default async function handler(req, res) {
   const html = `
     <h2>Neue HAQQ-Anfrage</h2>
     <p><b>Name:</b> ${esc(name)}</p>
+    <p><b>Telefon:</b> ${esc(phone)}</p>
     <p><b>E-Mail:</b> ${esc(email)}</p>
     <p><b>Verein/Team:</b> ${esc(club)}</p>
     <p><b>Interesse:</b> ${esc(interest)}</p>
+    <p><b>Beste Rückrufzeit:</b> ${esc(callback)}</p>
     <p><b>Nachricht:</b><br>${esc(message).replace(/\n/g,'<br>')}</p>
     <p><small>Quelle: ${esc(page || '')}</small></p>`;
   const response = await fetch('https://api.resend.com/emails', {
