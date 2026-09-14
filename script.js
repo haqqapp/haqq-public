@@ -31,10 +31,10 @@ if (form) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Senden fehlgeschlagen');
-      statusEl.textContent = 'Danke! Deine Anfrage wurde gesendet.';
+      statusEl.textContent = 'Danke! Deine Rückrufanfrage wurde gesendet. Wir melden uns bei dir.';
       form.reset();
     } catch (err) {
-      statusEl.textContent = 'Das Formular ist noch nicht vollständig eingerichtet. Bitte später erneut versuchen.';
+      statusEl.textContent = 'Das hat gerade nicht geklappt. Bitte versuche es später noch einmal.';
     }
   });
 }
